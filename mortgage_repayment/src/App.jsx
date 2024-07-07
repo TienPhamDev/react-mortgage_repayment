@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -8,6 +8,7 @@ function App() {
 
   return (
     <Main/>
+    
   )
 }
 function Main(){
@@ -19,8 +20,6 @@ function Main(){
   )
 }
 function MortgageCalculator(){
-  const [clickAmoutInp,setClickAmountInp] = useState(false)
-
   return (
       <div className='bg-red-500 p-8'>
         <form>
@@ -38,31 +37,41 @@ function MortgageCalculator(){
           >
             Mortgage Amount
           </label>
-          <div 
-            className={
-              clickAmoutInp ? 
-              'border-lime-300 my-2 flex border border-slate-300' 
-              :
-              'my-2 flex border border-slate-300'
-            }
-            
-          >
-            <span className={
-              clickAmoutInp ?
-              'bg-lime-300 p-2 font-bold bg-slate-300'
-              :
-              'p-2 font-bold bg-slate-300'
-            }>￡</span>
-            <input 
-              type="text" 
-              name='Amount' 
-              className='outline-none w-full p-2'
-              onClick={() => setClickAmountInp(true)}
-              onC />
-          </div>
+          <Input/>
         </form>
       </div>
   )
 }
-
+function Input(){
+  const [clickAmoutInp,setClickAmountInp] = useState(false)
+  useEffect(()=>{
+    document.addEventListener("click",(e)=>{
+      e.target.id === "Amount" ? setClickAmountInp(true) : setClickAmountInp(false)
+    })
+  },[])
+  return (
+    <div 
+      className={
+        clickAmoutInp ? 
+        'border-lime-300 my-2 flex border border-slate-300' 
+        :
+        'my-2 flex border border-slate-300'
+      } 
+      >
+      <span className={
+        clickAmoutInp ?
+        'bg-lime-300 p-2 font-bold bg-slate-300'
+        :
+        'p-2 font-bold bg-slate-300'
+      }>￡</span>
+      <input 
+        type="text" 
+        name='Amount'
+        id='Amount'
+        className='outline-none w-full p-2'
+        onPointerDown={() => setClickAmountInp(true)}
+      />
+    </div>
+  )
+}
 export default App
