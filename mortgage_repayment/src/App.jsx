@@ -46,7 +46,7 @@ function Input(){
   const [clickAmoutInp,setClickAmountInp] = useState(false)
   useEffect(()=>{
     document.addEventListener("click",(e)=>{
-      e.target.id === "Amount" ? setClickAmountInp(true) : setClickAmountInp(false)
+      e.target.id === "inputEl" ? setClickAmountInp(true) : setClickAmountInp(false)
     })
   },[])
   return (
@@ -67,7 +67,7 @@ function Input(){
       <input 
         type="text" 
         name='Amount'
-        id='Amount'
+        id='inputEl'
         className='outline-none w-full p-2'
         onPointerDown={() => setClickAmountInp(true)}
       />
