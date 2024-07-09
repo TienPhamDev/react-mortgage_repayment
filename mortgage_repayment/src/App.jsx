@@ -32,12 +32,12 @@ function MortgageCalculator(){
             </button>
           </div>
           <label 
-            htmlFor="Amount"
+            htmlFor='Amount'
             className='text-sm text-slate-300'
           >
             Mortgage Amount
           </label>
-          <Input/>
+          <Input />
         </form>
       </div>
   )
@@ -67,7 +67,7 @@ function Input(){
       }>￡</span>
       <input 
         type="text" 
-        name='Amount'
+        name="Amount"
         id='inputEl'
         className='outline-none w-full p-2'
         onPointerDown={() => setClickAmountInp(true)}
