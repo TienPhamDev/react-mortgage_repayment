@@ -44,17 +44,12 @@ function MortgageCalculator(){
 }
 function Input(){
   const [clickAmoutInp,setClickAmountInp] = useState(false)
-  // useEffect(()=>{
-  //   document.addEventListener("click",(e)=>{
-  //     e.target.id === "inputEl" ? setClickAmountInp(true) : setClickAmountInp(false)
-  //   })
-  // },[])
-  function handleClickInput(){
-    setClickAmountInp(true)
-    document.addEventListener("click",(e) => {
+  useEffect(()=>{
+    document.addEventListener("click",(e)=>{
       e.target.id === "inputEl" ? setClickAmountInp(true) : setClickAmountInp(false)
     })
-  }
+  },[])
+  
   return (
     <div 
       className={
