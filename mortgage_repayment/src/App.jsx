@@ -32,45 +32,44 @@ function MortgageCalculator(){
             </button>
           </div>
           <label 
-            htmlFor='Amount'
+            htmlFor="Amount"
             className='text-sm text-slate-300'
           >
             Mortgage Amount
           </label>
-          <Input />
+          <Input/>
         </form>
       </div>
   )
 }
 function Input(){
-  const [clickAmoutInp,setClickAmountInp] = useState(false)
+  const [clickInp,setClickInp] = useState(false)
   useEffect(()=>{
     document.addEventListener("click",(e)=>{
-      e.target.id === "inputEl" ? setClickAmountInp(true) : setClickAmountInp(false)
+      e.target.id === "inputEl" ? setClickInp(true) : setClickInp(false)
     })
   },[])
-  
   return (
     <div 
       className={
-        clickAmoutInp ? 
+        clickInp ? 
         'border-lime-300 my-2 flex border border-slate-300' 
         :
         'my-2 flex border border-slate-300'
       } 
       >
       <span className={
-        clickAmoutInp ?
+        clickInp ?
         'bg-lime-300 p-2 font-bold bg-slate-300'
         :
         'p-2 font-bold bg-slate-300'
       }>￡</span>
       <input 
         type="text" 
-        name="Amount"
+        name='Amount'
         id='inputEl'
         className='outline-none w-full p-2'
-        onPointerDown={() => setClickAmountInp(true)}
+        onPointerDown={() => setClickInp(true)}
       />
     </div>
   )
