@@ -22,7 +22,7 @@ function Main(){
 function MortgageCalculator(){
   return (
       <div className='bg-red-500 p-8'>
-        <form>
+        <form >
           <div className='flex justify-between'>
             <h1 className='font-bold text-lg text-slate-900'>
               Mortgage Calculator
@@ -37,39 +37,35 @@ function MortgageCalculator(){
           >
             Mortgage Amount
           </label>
-          <Input/>
+          <Input inputName="Amount"/>
         </form>
       </div>
   )
 }
-function Input(){
+function Input({inputName}){
   const [clickInp,setClickInp] = useState(false)
   useEffect(()=>{
     document.addEventListener("click",(e)=>{
-      e.target.id === "inputEl" ? setClickInp(true) : setClickInp(false)
+      e.target.id === inputName ? setClickInp(true) : setClickInp(false)
     })
   },[])
   return (
     <div 
       className={
-        clickInp ? 
-        'border-lime-300 my-2 flex border border-slate-300' 
-        :
-        'my-2 flex border border-slate-300'
+        clickInp ? 'border-lime-400 my-2 flex border-2' : 'my-2 flex border-2 border-slate-400'
       } 
       >
       <span className={
         clickInp ?
-        'bg-lime-300 p-2 font-bold bg-slate-300'
+        'bg-lime-400 p-2 font-bold'
         :
         'p-2 font-bold bg-slate-300'
       }>￡</span>
       <input 
-        type="text" 
-        name='Amount'
-        id='inputEl'
+        type="number" 
+        id={inputName}
         className='outline-none w-full p-2'
-        onPointerDown={() => setClickInp(true)}
+        onClick={() => setClickInp(true)}
       />
     </div>
   )
