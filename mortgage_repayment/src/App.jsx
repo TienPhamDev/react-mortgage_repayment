@@ -20,6 +20,7 @@ function Main(){
   )
 }
 function MortgageCalculator(){
+  const [amount,setAmount] = useState(0)
   return (
       <div className='bg-red-500 p-8'>
         <form >
@@ -62,7 +63,7 @@ function Input({inputName}){
         'p-2 font-bold bg-slate-300'
       }>￡</span>
       <input 
-        type="number" 
+        type="text" 
         id={inputName}
         className='outline-none w-full p-2'
         onClick={() => setClickInp(true)}
