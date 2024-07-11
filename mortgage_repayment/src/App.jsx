@@ -48,6 +48,11 @@ function MortgageCalculator(){
             <SmallInput inputName="Interest" spanText="%"/>
             </div>
           </div>
+          <h3 className='text-sm text-slate-300'>
+            Mortgage Type
+          </h3>
+          <RadioInput radioName="Repayment"/>
+          <RadioInput radioName="Interest Only"/>
         </form>
       </div>
   )
@@ -59,6 +64,12 @@ function Label({children,htmlFor}){
         >
           {children}
         </label>
+}
+function RadioInput({radioName}){
+  return <div className="border-2 border-slate-400 p-2 my-2 rounded-md">
+    <input type="radio" id={radioName} value={radioName} className='accent-lime-300'/>
+    <label htmlFor={radioName}> {radioName}</label>
+  </div>
 }
 function Input({inputName}){
   const [clickInp,setClickInp] = useState(false)
@@ -98,20 +109,20 @@ function SmallInput({inputName,spanText}){
   return (
     <div 
       className={
-        clickInp ? 'border-lime-400 my-2 flex border-2' : 'my-2 flex border-2 border-slate-400'
+        clickInp ? 'border-lime-400 my-2 flex border-2 rounded-md' : 'my-2 flex border-2 border-slate-400 rounded-md'
       } 
     >
       <input 
         type="text" 
         id={inputName}
-        className='outline-none w-full p-2'
+        className='outline-none w-full p-2 rounded-l'
         onClick={() => setClickInp(true)}
       />
       <span className={
         clickInp ?
-        'bg-lime-400 p-2 font-bold w-24 text-center'
+        'bg-lime-400 p-2 font-bold w-24 text-center rounded-r'
         :
-        'p-2 font-bold bg-slate-300 w-24 text-center'
+        'p-2 font-bold bg-slate-300 w-24 text-center rounded-r'
       }>{spanText}</span>
     </div>
   )
