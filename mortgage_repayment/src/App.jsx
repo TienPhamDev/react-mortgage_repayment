@@ -24,7 +24,9 @@ function Result(){
 }
 function MortgageCalculator(){
   const [result,setResult] = useState()
-  const [amount,setAmount] = useState() 
+  const [amount,setAmount] = useState()
+  const [term,setTerm] = useState()
+  const [interest,setInterest] = useState() 
   return (
       <div className='bg-slate-50 p-8 rounded-l-[25px]'>
         <form>
