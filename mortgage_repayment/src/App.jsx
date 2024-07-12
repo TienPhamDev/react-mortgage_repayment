@@ -16,9 +16,8 @@ function Main(){
   )
 }
 function MortgageCalculator(){
-  const [amount,setAmount] = useState(0)
   return (
-      <div className='bg-slate-50 p-8'>
+      <div className='bg-slate-50 p-8 rounded-l-[25px]'>
         <form>
           <div className='flex justify-between'>
             <h1 className='font-bold text-lg text-slate-800'>
@@ -51,7 +50,7 @@ function MortgageCalculator(){
           </h3>
           <RadioInput radioName="Repayment"/>
           <RadioInput radioName="Interest Only"/>
-          <button className='flex gap-4 p-4 bg-lime-400 my-6 rounded-full font-bold'>
+          <button className='flex gap-4 p-4 bg-lime-400 my-6 rounded-full font-bold hover:bg-lime-300  transition duration-300 '>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#133041" d="M18.75 2.25H5.25a1.5 1.5 0 0 0-1.5 1.5v16.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5V3.75a1.5 1.5 0 0 0-1.5-1.5Zm-10.5 16.5a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25Zm0-3.75a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25ZM12 18.75a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25ZM12 15a1.125 1.125 0 1 1 0-2.25A1.125 1.125 0 0 1 12 15Zm3.75 3.75a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25Zm0-3.75a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25Zm1.5-5.25a.75.75 0 0 1-.75.75h-9a.75.75 0 0 1-.75-.75V6a.75.75 0 0 1 .75-.75h9a.75.75 0 0 1 .75.75v3.75Z"/></svg> 
             Calculate Repayments
           </button>
@@ -71,9 +70,18 @@ function Label({children,htmlFor}){
         </label>
 }
 function RadioInput({radioName}){
-  return <div className="border-2 border-slate-400 p-2 my-2 rounded-md">
-    <input type="radio" id={radioName} value={radioName} className='accent-lime-300'/>
-    <label htmlFor={radioName}> {radioName}</label>
+  const [checked,setChecked] = useState(false)
+  const styleDiv = "flex items-center gap-2 border-2 border-slate-400 p-2 my-2 rounded-md hover:border-lime-400 transition duration-300";
+  return <div onClick={()=> setChecked(true)}
+              className={ checked ? `border-lime-400 ${styleDiv}` : styleDiv} >
+    <input
+      type="radio" 
+      value={radioName}
+      id={radioName}
+      checked = {checked}
+      onChange={()=> setChecked(true)}
+    />
+    <label htmlFor={radioName} className='font-semibold w-full'>{radioName}</label>
   </div>
 }
 function Input({inputName}){
@@ -86,14 +94,14 @@ function Input({inputName}){
   return (
     <div 
       className={
-        clickInp ? 'border-lime-400 my-2 flex border-2 rounded-md' : 'my-2 flex border-2 border-slate-400 rounded-md'
+        clickInp ? 'border-lime-400 my-2 flex border-2 rounded-md transition duration-300' : 'my-2 flex border-2 border-slate-400 rounded-md transition duration-300'
       } 
     >
       <span className={
         clickInp ?
-        'bg-lime-400 p-2 font-bold rounded-l text-slate-500'
+        'bg-lime-400 p-2 font-bold rounded-l text-slate-500 transition duration-300'
         :
-        'p-2 font-bold bg-slate-300 rounded-l text-slate-500'
+        'p-2 font-bold bg-slate-300 rounded-l text-slate-500 transition duration-300'
       }>￡</span>
       <input 
         type="text" 
@@ -115,9 +123,9 @@ function SmallInput({inputName,spanText}){
     <div 
       className={
         clickInp ? 
-        'border-lime-400 my-2 flex border-2 rounded-md' 
+        'border-lime-400 my-2 flex border-2 rounded-md transition duration-300' 
         : 
-        'my-2 flex border-2 border-slate-400 rounded-md'
+        'my-2 flex border-2 border-slate-400 rounded-md transition duration-300'
       } 
     >
       <input 
@@ -128,9 +136,9 @@ function SmallInput({inputName,spanText}){
       />
       <span className={
         clickInp ?
-        'bg-lime-400 p-2 font-bold w-24 text-center rounded-r text-slate-500'
+        'bg-lime-400 p-2 font-bold w-24 text-center rounded-r text-slate-500 transition duration-300'
         :
-        'p-2 font-bold bg-slate-300 w-24 text-center rounded-r text-slate-500'
+        'p-2 font-bold bg-slate-300 w-24 text-center rounded-r text-slate-500 transition duration-300'
       }>{spanText}</span>
     </div>
   )
