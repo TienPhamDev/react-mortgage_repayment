@@ -7,6 +7,7 @@ input[type=radio] {
     /* padding: 10px; */
     width: 16px;
     height: 16px;
+    margin-left: 10px;
     background-color: #fff;
     border-radius:50%;
     border: 2px solid #64748b;
@@ -29,5 +30,4 @@ input[type=radio]:checked{
 }
 input[type=radio]:checked::before {
     background-color:#a3e635;
-
  }

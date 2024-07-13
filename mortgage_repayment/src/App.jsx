@@ -24,9 +24,10 @@ function Result(){
 }
 function MortgageCalculator(){
   const [result,setResult] = useState()
-  const [amount,setAmount] = useState()
-  const [term,setTerm] = useState()
-  const [interest,setInterest] = useState() 
+  const [amount,setAmount] = useState("")
+  const [term,setTerm] = useState("")
+  const [interest,setInterest] = useState("") 
+  const [mortgageType,setMortgageType] = useState("")
   return (
       <div className='bg-slate-50 p-8 rounded-l-[25px]'>
         <form>
@@ -41,26 +42,26 @@ function MortgageCalculator(){
           <Label htmlFor="Amount">
             Mortgage Amount
           </Label>
-          <Input inputName="Amount"/>
+          <Input inputName="Amount" value={amount} onChangeValue={setAmount}/>
           <div className='flex justify-between gap-6'>
             <div>
             <Label htmlFor="Term">
               Mortgage Term
             </Label>
-            <SmallInput inputName="Term" spanText="Years"/>
+            <SmallInput inputName="Term" spanText="Years" value={term} onChangeValue={setTerm} />
             </div>
             <div>
             <Label htmlFor="Interest">
               Interest Rate
             </Label>
-            <SmallInput inputName="Interest" spanText="%"/>
+            <SmallInput inputName="Interest" spanText="%" value={interest} onChangeValue={setInterest}/>
             </div>
           </div>
           <h3 className='text-sm text-slate-500'>
             Mortgage Type
           </h3>
-          <RadioInput radioName="Repayment"/>
-          <RadioInput radioName="Interest Only"/>
+          <RadioInput radioName="Repayment" group="MortgageType" value={mortgageType} onChangeValue={setMortgageType}/>
+          <RadioInput radioName="Interest Only" group="MortgageType" value={mortgageType} onChangeValue={setMortgageType}/>
           <button className='flex gap-4 p-4 bg-lime-400 my-6 rounded-full font-bold hover:bg-lime-300  transition duration-300 '>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#133041" d="M18.75 2.25H5.25a1.5 1.5 0 0 0-1.5 1.5v16.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5V3.75a1.5 1.5 0 0 0-1.5-1.5Zm-10.5 16.5a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25Zm0-3.75a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25ZM12 18.75a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25ZM12 15a1.125 1.125 0 1 1 0-2.25A1.125 1.125 0 0 1 12 15Zm3.75 3.75a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25Zm0-3.75a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25Zm1.5-5.25a.75.75 0 0 1-.75.75h-9a.75.75 0 0 1-.75-.75V6a.75.75 0 0 1 .75-.75h9a.75.75 0 0 1 .75.75v3.75Z"/></svg> 
             Calculate Repayments
@@ -80,22 +81,29 @@ function Label({children,htmlFor}){
           {children}
         </label>
 }
-function RadioInput({radioName}){
+function RadioInput({radioName,group,value,onChangeValue}){
   const [checked,setChecked] = useState(false)
-  const styleDiv = "flex items-center gap-2 border-2 border-slate-400 p-2 my-2 rounded-md hover:border-lime-400 transition duration-300";
-  return <div onClick={()=> setChecked(true)}
-              className={ checked ? `border-lime-400 ${styleDiv}` : styleDiv} >
+  const styleDiv = "flex items-center gap-2 border-2 border-slate-400 my-2 rounded-md hover:border-lime-400 transition duration-300";
+  useEffect(()=>{
+    document.addEventListener("click",(e)=>{
+      e.target.id === radioName ? setChecked(true) : setChecked(false)
+    })
+  },[])
+  
+  return <div className={ checked ? `border-lime-400 ${styleDiv}` : styleDiv} >
     <input
-      type="radio" 
+      type="radio"
+      name={group} 
       value={radioName}
       id={radioName}
       checked = {checked}
-      onChange={()=> setChecked(true)}
+      onClick={()=> setChecked(true)}
+      onChange={(e) => onChangeValue(e.target.value) }
     />
-    <label htmlFor={radioName} className='font-semibold w-full'>{radioName}</label>
+    <label htmlFor={radioName} className='font-semibold w-full py-2'>{radioName}</label>
   </div>
 }
-function Input({inputName}){
+function Input({inputName,value,onChangeValue}){
   const [clickInp,setClickInp] = useState(false)
   useEffect(()=>{
     document.addEventListener("click",(e)=>{
@@ -115,15 +123,19 @@ function Input({inputName}){
         'p-2 font-bold bg-slate-300 rounded-l text-slate-500 transition duration-300'
       }>￡</span>
       <input 
-        type="text" 
+        type="text"
+        value={value}
         id={inputName}
         className='outline-none w-full p-2 rounded-r'
         onClick={() => setClickInp(true)}
+        onChange={(e) => {
+          onChangeValue(Number(e.target.value))
+        }}
       />
     </div>
   )
 }
-function SmallInput({inputName,spanText}){
+function SmallInput({inputName,spanText,value,onChangeValue}){
   const [clickInp,setClickInp] = useState(false)
   useEffect(()=>{
     document.addEventListener("click",(e)=>{
@@ -143,7 +155,9 @@ function SmallInput({inputName,spanText}){
         type="text" 
         id={inputName}
         className='outline-none w-full p-2 rounded-l'
+        value={value}
         onClick={() => setClickInp(true)}
+        onChange={(e) => onChangeValue(Number(e.target.value))}
       />
       <span className={
         clickInp ?
