@@ -31,10 +31,12 @@ function MortgageCalculator(){
   function handleSubmit(e){
     e.preventDefault()
     let result
+    const percentInterest = interest / 100
+    const termToMonthly = term * 12 
     if( mortgageType === "Interest Only" ){
-      result = (amount * interest / 100) / 12
+      result = amount * percentInterest / 12
     } else if (mortgageType === "Repayment"){
-      result 
+      result = ( amount / termToMonthly ) + (amount * percentInterest / 12) 
     }
     setResult(result)
   }
@@ -72,7 +74,7 @@ function MortgageCalculator(){
           </h3>
           <RadioInput radioName="Repayment" group="MortgageType" value={mortgageType} onChangeValue={setMortgageType}/>
           <RadioInput radioName="Interest Only" group="MortgageType" value={mortgageType} onChangeValue={setMortgageType}/>
-          <button className='flex gap-4 p-4 bg-lime-400 my-6 rounded-full font-bold hover:bg-lime-300  transition duration-300 '>
+          <button id='btnForm' className='flex gap-4 p-4 bg-lime-400 my-6 rounded-full font-bold hover:bg-lime-300  transition duration-300 '>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#133041" d="M18.75 2.25H5.25a1.5 1.5 0 0 0-1.5 1.5v16.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5V3.75a1.5 1.5 0 0 0-1.5-1.5Zm-10.5 16.5a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25Zm0-3.75a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25ZM12 18.75a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25ZM12 15a1.125 1.125 0 1 1 0-2.25A1.125 1.125 0 0 1 12 15Zm3.75 3.75a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25Zm0-3.75a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25Zm1.5-5.25a.75.75 0 0 1-.75.75h-9a.75.75 0 0 1-.75-.75V6a.75.75 0 0 1 .75-.75h9a.75.75 0 0 1 .75.75v3.75Z"/></svg> 
             Calculate Repayments
           </button>
@@ -96,7 +98,7 @@ function RadioInput({radioName,group,value,onChangeValue}){
   const styleDiv = "flex items-center gap-2 border-2 border-slate-400 my-2 rounded-md hover:border-lime-400 transition duration-300";
   useEffect(()=>{
     document.addEventListener("click",(e)=>{
-      e.target.id === radioName ? setChecked(true) : setChecked(false)
+      e.target.id === radioName ? setChecked(true) : setChecked(false)  
     })
   },[])
   
