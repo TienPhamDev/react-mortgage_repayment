@@ -31,12 +31,14 @@ function MortgageCalculator(){
   function handleSubmit(e){
     e.preventDefault()
     let result
-    const percentInterest = interest / 100
+    const percentInterest = interest / 100 /12
     const termToMonthly = term * 12 
     if( mortgageType === "Interest Only" ){
-      result = amount * percentInterest / 12
+      result = amount * percentInterest 
     } else if (mortgageType === "Repayment"){
-      result = ( amount / termToMonthly ) + (amount * percentInterest / 12) 
+      const up = percentInterest * ((1 + percentInterest)** termToMonthly)
+      const down = ((1 + percentInterest)** termToMonthly) - 1
+      result = amount * up / down
     }
     setResult(result)
   }
