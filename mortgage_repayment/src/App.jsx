@@ -23,14 +23,24 @@ function Result(){
   </div>
 }
 function MortgageCalculator(){
-  const [result,setResult] = useState()
+  const [result,setResult] = useState("")
   const [amount,setAmount] = useState("")
   const [term,setTerm] = useState("")
   const [interest,setInterest] = useState("") 
   const [mortgageType,setMortgageType] = useState("")
+  function handleSubmit(e){
+    e.preventDefault()
+    let result
+    if( mortgageType === "Interest Only" ){
+      result = (amount * interest / 100) / 12
+    } else if (mortgageType === "Repayment"){
+      result 
+    }
+    setResult(result)
+  }
   return (
       <div className='bg-slate-50 p-8 rounded-l-[25px]'>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className='flex justify-between'>
             <h1 className='font-bold text-lg text-slate-800'>
               Mortgage Calculator
