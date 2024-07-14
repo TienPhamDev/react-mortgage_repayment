@@ -98,19 +98,19 @@ function Label({children,htmlFor}){
 function RadioInput({radioName,group,value,onChangeValue}){
   const [checked,setChecked] = useState(false)
   const styleDiv = "flex items-center gap-2 border-2 border-slate-400 my-2 rounded-md hover:border-lime-400 transition duration-300";
-  useEffect(()=>{
-    document.addEventListener("click",(e)=>{
-      e.target.id === radioName ? setChecked(true) : setChecked(false)  
-    })
-  },[])
+  // useEffect(()=>{
+  //   document.addEventListener("click",(e)=>{
+  //     e.target.id === radioName ? setChecked(true) : setChecked(false)  
+  //   })
+  // },[])
   
-  return <div className={ checked ? `border-lime-400 ${styleDiv}` : styleDiv} >
+  return <div className={ checked ? "border-lime-400" +{styleDiv} : styleDiv} >
     <input
       type="radio"
       name={group} 
       value={radioName}
       id={radioName}
-      checked = {checked}
+      // checked = {checked}
       onClick={()=> setChecked(true)}
       onChange={(e) => onChangeValue(e.target.value) }
     />
