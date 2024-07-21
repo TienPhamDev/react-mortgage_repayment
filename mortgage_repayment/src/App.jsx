@@ -116,7 +116,8 @@ function MortgageCalculator({
             Mortgage Type
           </h3>
           <RadioInput radioName="Repayment" group="MortgageType" value={mortgageType} onChangeValue={setMortgageType}/>
-          <RadioInput radioName="Interest Only" group="MortgageType" value={mortgageType} onChangeValue={setMortgageType}/>
+        <RadioInput radioName="Interest Only" group="MortgageType" value={mortgageType} onChangeValue={setMortgageType} />
+        {mortgageType === "" && !error ? <p className='text-red-500 font-bold text-sm'>This field is required</p> : null}
           <button id='btnForm' onClick={(e)=> handleSubmit(e)} className='flex gap-4 p-4 bg-lime-400 my-6 rounded-full font-bold hover:bg-lime-300  transition duration-300 '>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#133041" d="M18.75 2.25H5.25a1.5 1.5 0 0 0-1.5 1.5v16.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5V3.75a1.5 1.5 0 0 0-1.5-1.5Zm-10.5 16.5a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25Zm0-3.75a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25ZM12 18.75a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25ZM12 15a1.125 1.125 0 1 1 0-2.25A1.125 1.125 0 0 1 12 15Zm3.75 3.75a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25Zm0-3.75a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25Zm1.5-5.25a.75.75 0 0 1-.75.75h-9a.75.75 0 0 1-.75-.75V6a.75.75 0 0 1 .75-.75h9a.75.75 0 0 1 .75.75v3.75Z"/></svg> 
             Calculate Repayments
@@ -134,7 +135,7 @@ function Label({children,htmlFor}){
           {children}
         </label>
 }
-function RadioInput({radioName,group,value,onChangeValue}){
+function RadioInput({radioName,group,onChangeValue}){
   const styleDiv = "has-[:checked]:border-lime-400 font-semibold w-full py-2 flex items-center gap-2 border-2 my-2 rounded-md border-slate-400 hover:border-lime-400 transition duration-300";
 
   return <label htmlFor={radioName} className={styleDiv}>
@@ -153,13 +154,13 @@ function Input({inputName,value,onChangeValue,error}){
     document.addEventListener("click",(e)=>{
       e.target.id === inputName ? setClickInp(true) : setClickInp(false)
     })
-  },[])
+  },[inputName])
 
   return (<>
     { !error ? <div 
       className="border-red-500 my-2 flex border-2 rounded-md transition duration-300" 
       >
-      <span className="text-slate-100 bg-red-500 p-2 font-bold rounded-l transition duration-300">￡</span>
+      <span className="text-slate-100 bg-red-500 p-2 font-bold rounded-l transition duration-300">&#163;</span>
       <input 
         type="text"
         value={value}
@@ -204,7 +205,7 @@ function SmallInput({inputName,spanText,value,onChangeValue,error}){
     document.addEventListener("click",(e)=>{
       e.target.id === inputName ? setClickInp(true) : setClickInp(false)
     })
-  },[])
+  },[inputName])
   return <>
     { !error ? <div 
       className="border-red-500 my-2 flex border-2 rounded-md transition duration-300" 
