@@ -43,7 +43,7 @@ function Main(){
     setError(true)
   }
   return (
-    <div className='grid grid-cols-2 w-3/4 mx-auto my-28 bg-slate-50 rounded-[25px]'>
+    <div className='lg:grid lg:grid-cols-2 md:w-3/4 md:mx-auto md:my-20 bg-slate-50 lg:rounded-[25px] md:rounded-lg'>
       <MortgageCalculator handleSubmit={handleSubmit} onClickClearAll={handleClearAllBtn} amount={amount} setAmount={setAmount} term={term} setTerm={setTerm} interest={interest} setInterest={setInterest} mortgageType={mortgageType} setMortgageType={setMortgageType} error={error}/>
       <Result result={result} term={term}/>
     </div>
@@ -51,7 +51,7 @@ function Main(){
 }
 function Result({result,term}){
   const termToMonthly = term * 12
-  const styleResult = 'bg-slate-700 p-8 rounded-r-[25px] rounded-bl-[50px] flex flex-col justify-center items-center'
+  const styleResult = 'bg-slate-700 p-8 lg:rounded-r-[25px] lg:rounded-bl-[50px] flex flex-col justify-center items-center md:rounded-bl-lg md:rounded-br-lg'
   return <>
   { result === 0 ?
     <div className={styleResult}>
@@ -60,7 +60,7 @@ function Result({result,term}){
     <p className='text-center text-slate-400'>Complete the form and click “calculate repayments” to see what your monthly repayments would be.</p>
     </div> 
     :
-    <div className="bg-slate-700 rounded-r-[25px] rounded-bl-[50px] p-8">
+    <div className="bg-slate-700 lg:rounded-r-[25px] lg:rounded-bl-[50px] md:rounded-b-lg p-8">
       <h1 className='text-slate-100 text-2xl font-bold tracking-wider'>Your Result</h1>
       <p className='text-left text-slate-400 py-6'>Your results are shown below based on the information you provided. 
   To adjust the results, edit the form and click “calculate repayments” again.</p>
@@ -80,7 +80,7 @@ function MortgageCalculator({
 }){
 
   return (
-      <div className='bg-slate-50 p-8 rounded-l-[25px]'>
+      <div className='bg-slate-50 p-8 lg:rounded-l-[25px] md:rounded-t-lg'>
         <form>
           <div className='flex justify-between'>
             <h1 className='font-bold text-2xl text-slate-800'>
@@ -95,7 +95,7 @@ function MortgageCalculator({
           </Label>
           <Input inputName="Amount" value={amount} onChangeValue={setAmount} error={error} />
           {error || <p className='text-red-500 font-bold text-sm'>This field is required</p>}
-          <div className='flex justify-between gap-6'>
+          <div className='md:flex justify-between gap-6'>
             <div>
             <Label htmlFor="Term">
               Mortgage Term
