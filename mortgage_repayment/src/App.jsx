@@ -76,7 +76,7 @@ function Result({result,term}){
   </>
 }
 function MortgageCalculator({
-  handleSubmit,onClickClearAll,amount,setAmount,term,setTerm,interest,setInterest,mortgageType,setMortgageType,error
+  handleSubmit, onClickClearAll, amount, setAmount, term, setTerm, interest, setInterest, mortgageType, setMortgageType, error
 }){
 
   return (
@@ -93,19 +93,23 @@ function MortgageCalculator({
           <Label htmlFor="Amount">
             Mortgage Amount
           </Label>
-          <Input inputName="Amount" value={amount} onChangeValue={setAmount} error={error}/>
+          <Input inputName="Amount" value={amount} onChangeValue={setAmount} error={error} />
+          {error || <p className='text-red-500 font-bold text-sm'>This field is required</p>}
           <div className='flex justify-between gap-6'>
             <div>
             <Label htmlFor="Term">
               Mortgage Term
             </Label>
-            <SmallInput inputName="Term" spanText="Years" value={term} onChangeValue={setTerm} />
+            <SmallInput inputName="Term" spanText="Years" value={term} error={error} onChangeValue={setTerm} />
+            {error || <p className='text-red-500 font-bold text-sm'>This field is required</p>}
             </div>
+            
             <div>
             <Label htmlFor="Interest">
               Interest Rate
             </Label>
-            <SmallInput inputName="Interest" spanText="%" value={interest} onChangeValue={setInterest}/>
+            <SmallInput inputName="Interest" spanText="%" value={interest} error={error} onChangeValue={setInterest} />
+            {error || <p className='text-red-500 font-bold text-sm'>This field is required</p>}
             </div>
           </div>
           <h3 className='text-sm text-slate-500'>
@@ -121,9 +125,7 @@ function MortgageCalculator({
       </div>
   )
 }
-function Button(){
-  return <button>Calculate Repayment</button>
-}
+
 function Label({children,htmlFor}){
   return <label 
           htmlFor={htmlFor}
@@ -167,8 +169,9 @@ function Input({inputName,value,onChangeValue,error}){
         onChange={(e) => {
           onChangeValue(Number(e.target.value))
         }}
-        />
+      />
       </div>
+      
       :
       <div 
       className={
@@ -195,15 +198,29 @@ function Input({inputName,value,onChangeValue,error}){
         </>
   )
 }
-function SmallInput({inputName,spanText,value,onChangeValue}){
+function SmallInput({inputName,spanText,value,onChangeValue,error}){
   const [clickInp,setClickInp] = useState(false)
   useEffect(()=>{
     document.addEventListener("click",(e)=>{
       e.target.id === inputName ? setClickInp(true) : setClickInp(false)
     })
   },[])
-  return (
-    <div 
+  return <>
+    { !error ? <div 
+      className="border-red-500 my-2 flex border-2 rounded-md transition duration-300" 
+    >
+      <input 
+        type="text" 
+        id={inputName}
+        className='outline-none w-full p-2 rounded-l'
+        value={value}
+        onClick={() => setClickInp(true)}
+        onChange={(e) => onChangeValue(Number(e.target.value))}
+      />
+      <span className="bg-red-500 p-2 font-bold w-24 text-center rounded-r text-slate-100 transition duration-300"x>{spanText}</span>
+      </div > 
+      :
+      < div 
       className={
         clickInp ? 
         'border-lime-400 my-2 flex border-2 rounded-md transition duration-300' 
@@ -225,8 +242,8 @@ function SmallInput({inputName,spanText,value,onChangeValue}){
         :
         'p-2 font-bold bg-slate-300 w-24 text-center rounded-r text-slate-500 transition duration-300'
       }>{spanText}</span>
-    </div>
-  )
+    </div>}
+    </>
 }
 
 export default App
